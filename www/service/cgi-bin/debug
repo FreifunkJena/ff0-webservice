@@ -7,13 +7,24 @@ echo "<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head
 echo "<h1>Router Status</h1>"
 echo "<h2>Main Info</h2>"
 echo "<pre>"
+echo "Version: "$(cat /etc/banner | grep config) | cat
+echo "</pre>"
+echo "<pre>"
 echo "NodeID: "$(cat /etc/nodeid) | cat
 echo "</pre>"
 echo "<pre>"
 echo "Hostname: "$(uci -q get system.@system[0].hostname) | cat
 echo "</pre>"
 echo "<pre>"
-echo "Version: "$(cat /etc/banner | grep config) | cat
+echo "CPU Utilization: "$(cat /proc/loadavg | awk {'print $1" " $2" "$3'}) | cat
+echo "</pre>"
+echo "<pre>"
+echo "Memory Utilization (MBytes): "
+free -m | cat
+echo "</pre>"
+echo "<pre>"
+echo "Filesystem Information: "
+df -h | cat
 echo "</pre>"
 echo "<h2>Batman-ADV</h2>"
 echo "<h3>Batman Version</h3>"
