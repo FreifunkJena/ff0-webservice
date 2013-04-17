@@ -1,6 +1,7 @@
 #!/bin/sh
+url="http://$SERVER_ADDR/cgi-bin/splash.html?"
+reftrans="/sbin/urlencode"
 
-read url reftrans < /tmp/redirection_target
 if [ -x "$reftrans" ]; then
     url="$url$(echo "$HTTP_HOST$REQUEST_URI" | $reftrans)"
 fi
