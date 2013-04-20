@@ -43,12 +43,16 @@ exec_lazy() {
 ## some tests
 have_internet() {
     if [ -z "$have_internet_cached_result" ]; then
-	local mode=$(cat /tmp/fsm/inetable || echo boot)
-	if [ "$mode" == drone -o "$mode" == queen -o "$mode" == ghost ]; then
-	    have_internet_cached_result=true
-	else
-	    have_internet_cached_result=false
-	fi
+        local mode=$(cat /tmp/fsm/inetable-* || echo boot)
+		for m in $mode
+		do
+			if [ $m == drone -o $m == queen -o $m == ghost ]; then
+				have_internet_cached_result=true
+				break
+			else
+				have_internet_cached_result=false
+			fi
+		done
     fi
     $have_internet_cached_result
 }
