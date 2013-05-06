@@ -96,7 +96,7 @@
 	  </div>
 	</form>
 	
-	<form class="well" action="cgi-bin/cfg_router.json" method="post">
+	<!-- <form class="well" action="cgi-bin/cfg_router.json" method="post">
 	  <h4>Internetzugang</h4>
 	  <label class="checkbox">
 	    <input type="checkbox" name="router_qos" value="true" class="data">
@@ -111,14 +111,15 @@
 	    Zugriff auf lokale Netzwerke hinterm WAN-Port sperren
 	  </label>
 	  <input type="submit" class="btn btn-mini disabled" value="Speichern">
-	</form>
+	</form> -->
 
 	<form class="well" action="cgi-bin/cfg_router.json" method="post" id="geo">
 	  <h4>Routerstandort</h4>
 	  <div class="row-fluid">
 	    <div class="span6">
+		<!-- automatic mode is currently not working :( -->
 	      <label class="radio">
-		<input type="radio" name="router_geo" class="data" value="automatic">automatisch ermitteln
+		<input type="radio" name="router_geo" class="data" disabled="disabled" value="automatic">automatisch ermitteln (Momentan nicht verf&uuml;gbar
 	      </label>
 	      <label class="radio">
 		<input type="radio" name="router_geo" class="data" value="manual">von Hand eingeben
