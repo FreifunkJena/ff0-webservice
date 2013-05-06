@@ -8,14 +8,13 @@ update_geo() {
     local public=$2
     local del=$3
     uci -q batch <<EOF
-set system.position.automatic=$auto
-set system.position.public=$public
+set owm.settings.automatic=$auto
+set owm.settings.public=$public
 EOF
     if $del; then
 	    uci -q batch <<EOF
-delete system.position.lon
-delete system.position.lat
-delete system.position.street
+delete owm.settings.lon
+delete owm.settings.lat
 EOF
     fi
     if $auto && have_internet; then
@@ -93,11 +92,18 @@ while read key val; do
 		    ;;
 	    esac
 	    lazy 90 update_node_db
-	    lazy 99 uci commit system
+	    lazy 99 uci commit owm
 	    ;;
-	router_pos_lon|router_pos_lat)
+	router_pos_lon)
 	    if $use_router_pos; then
-		true
+		lazy 00 uci set owm.settings.lon='$val'
+		lazy 99 uci commit owm
+	    fi
+	    ;;
+	router_pos_lat)
+	    if $use_router_pos; then
+		lazy 00 uci set owm.settings.lat='$val'
+		lazy 99 uci commit owm
 	    fi
 	    ;;
 	router_pos_street)
