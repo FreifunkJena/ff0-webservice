@@ -96,13 +96,13 @@ while read key val; do
 	    ;;
 	router_pos_lon)
 	    if $use_router_pos; then
-		lazy 00 uci set owm.settings.lon='$val'
+		lazy 00 uci set owm.settings.lon=$val
 		lazy 99 uci commit owm
 	    fi
 	    ;;
 	router_pos_lat)
 	    if $use_router_pos; then
-		lazy 00 uci set owm.settings.lat='$val'
+		lazy 00 uci set owm.settings.lat=$val
 		lazy 99 uci commit owm
 	    fi
 	    ;;

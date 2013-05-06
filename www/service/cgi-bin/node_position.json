@@ -7,15 +7,13 @@ exec 666>>/tmp/lock/geolocate
 flock -w 3 -s 666 || true
 
 uci batch <<EOF 2>&1 | tee /tmp/www.foo | {
-get system.position.public
-get system.position.lon
-get system.position.lat
-get system.position.street
+get owm.settings.public
+get owm.settings.lon
+get owm.settings.lat
 EOF
     read_uci public
     read_uci lon
     read_uci lat
-    read_uci street
 
     if ! $public; then
 	fail 403 'Geolokation deaktiviert'
@@ -29,6 +27,6 @@ Content-Type: application/json\r
 \r
 {\"router_pos_lon\": $lon,
  \"router_pos_lat\": $lat,
- \"router_pos_street\": \"$street\"
+ \"router_pos_street\": \"Noch nicht implementiert\"
 }"
 }

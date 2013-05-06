@@ -10,9 +10,9 @@ fi
 
 # compute geo mode value (if not changed during this request)
 if [ -z "$router_geo" ]; then
-    if [ "$(uci get system.position.public)" == 'false' ]; then
+    if [ "$(uci get owm.settings.public)" == 'false' ]; then
 	router_geo=private
-    elif [ "$(uci get system.position.automatic)" == 'false' ]; then
+    elif [ "$(uci get owm.settings.automatic)" == 'false' ]; then
 	router_geo=manual
     else
 	router_geo=automatic
