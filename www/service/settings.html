@@ -67,7 +67,7 @@
 	<h3>Routereinstellungen <small>f&uuml;r <span class="data-router_name loading"></span></h3>
 
 	<form class="well" action="cgi-bin/cfg_router.json" method="post">
-	  <h4>Name</h4>
+	  <h4>Hostname</h4>
 	  <input type="text" name="router_name" class="data">
 	  <input type="submit" class="btn btn-mini disabled" value="Speichern">
 	</form>
@@ -117,10 +117,11 @@
 	  <h4>Routerstandort</h4>
 	  <div class="row-fluid">
 	    <div class="span6">
-		<!-- automatic mode is currently not working :( -->
+		<!-- automatic mode is currently not working :( 
 	      <label class="radio">
-		<input type="radio" name="router_geo" class="data" disabled="disabled" value="automatic">automatisch ermitteln (Momentan nicht verf&uuml;gbar
+		<input type="radio" name="router_geo" class="data" disabled="disabled" value="automatic">automatisch ermitteln (Momentan nicht verf&uuml;gbar)  
 	      </label>
+		-->
 	      <label class="radio">
 		<input type="radio" name="router_geo" class="data" value="manual">von Hand eingeben
 	      </label>
@@ -133,8 +134,17 @@
 		<input type="text" name="router_pos_lon" class="data"></div>
 	      <div>Lattitude<br />
 		<input type="text" name="router_pos_lat" class="data"></div>
-	      <div>Ort<br />
-		<input type="text" name="router_pos_street" disabled="disabled" class="data"></div>
+		  <div><p>Zus&auml;tzliche Informationen</p></div>
+		  <div>Name / Node Betreiber<br />
+		<input type="text" name="router_pos_name" class="data"></div>
+		  <div>Strasse<br />
+		<input type="text" name="router_pos_street" class="data"></div>
+		  <div>Postleitzahl<br />
+		<input type="text" name="router_pos_zip" class="data"></div>
+		  <div>Ort<br />
+		<input type="text" name="router_pos_city" class="data"></div>
+		  <div>Land<br />
+		<input type="text" name="router_pos_country" class="data"></div>
 	    </div>
 	  </div>
 	  <input type="submit" class="btn btn-mini disabled" value="Speichern">

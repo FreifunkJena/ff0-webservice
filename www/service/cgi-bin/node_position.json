@@ -10,10 +10,21 @@ uci batch <<EOF 2>&1 | tee /tmp/www.foo | {
 get owm.settings.public
 get owm.settings.lon
 get owm.settings.lat
+get owm.settings.postal_name
+get owm.settings.postal_street
+get owm.settings.postal_zip
+get owm.settings.postal_city
+get owm.settings.postal_country
+
 EOF
     read_uci public
     read_uci lon
     read_uci lat
+	read_uci name
+	read_uci street
+	read_uci zip
+	read_uci city
+	read_uci country
 
     if ! $public; then
 	fail 403 'Geolokation deaktiviert'
@@ -27,6 +38,10 @@ Content-Type: application/json\r
 \r
 {\"router_pos_lon\": $lon,
  \"router_pos_lat\": $lat,
- \"router_pos_street\": \"Noch nicht implementiert\"
+ \"router_pos_name\": \"$name\",
+ \"router_pos_street\": \"$street\",
+ \"router_pos_zip\": \"$zip\",
+ \"router_pos_city\": \"$city\",
+ \"router_pos_county\": \"$county\"
 }"
 }

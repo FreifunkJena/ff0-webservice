@@ -15,6 +15,11 @@ EOF
 	    uci -q batch <<EOF
 delete owm.settings.lon
 delete owm.settings.lat
+delete owm.settings.postal_name
+delete owm.settings.postal_street
+delete owm.settings.postal_zip
+delete owm.settings.postal_city
+delete owm.settings.postal_country
 EOF
     fi
     if $auto && have_internet; then
@@ -67,6 +72,8 @@ while read key val; do
 	    case "$router_geo" in
 		private)
 		    lazy 00 update_geo false false true
+			lazy 99 uci commit owm
+			use_router_pos=false
 		    ;;
 		manual)
 		    lazy 00 update_geo false true false
@@ -85,6 +92,8 @@ while read key val; do
 			flock -n -x 667 || true
 		    else
 			lazy 00 update_geo true true false
+			lazy 99 uci commit owm
+			use_router_pos=false
 		    fi
 		    ;;
 		*)
@@ -92,26 +101,46 @@ while read key val; do
 		    ;;
 	    esac
 	    lazy 90 update_node_db
-	    lazy 99 uci commit owm
 	    ;;
 	router_pos_lon)
-	    if $use_router_pos; then
-		lazy 00 uci set owm.settings.lon=$val
-		lazy 99 uci commit owm
+		if $use_router_pos; then
+			lazy 00 uci set owm.settings.lon=$val
 	    fi
 	    ;;
 	router_pos_lat)
 	    if $use_router_pos; then
-		lazy 00 uci set owm.settings.lat=$val
-		lazy 99 uci commit owm
+			lazy 00 uci set owm.settings.lat=$val
+	    fi
+	    ;;
+	router_pos_name)
+	    if $use_router_pos; then
+			lazy 00 uci set owm.settings.postal_name=$val
 	    fi
 	    ;;
 	router_pos_street)
 	    if $use_router_pos; then
-		true
+			lazy 00 uci set owm.settings.postal_street=$val
+	    fi
+	    ;;
+	router_pos_zip)
+	    if $use_router_pos; then
+			lazy 00 uci set owm.settings.postal_zip=$val
+	    fi
+	    ;;
+	router_pos_city)
+	    if $use_router_pos; then
+			lazy 00 uci set owm.settings.postal_city=$val
+	    fi
+	    ;;
+	router_pos_country)
+	    if $use_router_pos; then
+			lazy 00 uci set owm.settings.postal_country=$val
 	    fi
 	    ;;
 	esac
-done <<EOF
+done
+if $use_router_pos; then
+	lazy 99 uci commit owm
+fi <<EOF
 $(tr '=&' ' \n' | sort)
 EOF
