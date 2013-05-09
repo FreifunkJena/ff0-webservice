@@ -104,43 +104,50 @@ while read key val; do
 	    ;;
 	router_pos_lon)
 		if $use_router_pos; then
-			lazy 00 uci set owm.settings.lon=$val
+			lon=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.lon='"'$lon'"''
 	    fi
 	    ;;
 	router_pos_lat)
 	    if $use_router_pos; then
-			lazy 00 uci set owm.settings.lat=$val
+			lat=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.lat='"'$lat'"''
 	    fi
 	    ;;
 	router_pos_name)
 	    if $use_router_pos; then
-			lazy 00 uci set owm.settings.postal_name=$val
+			name=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.postal_name='"'$name'"''
 	    fi
 	    ;;
 	router_pos_street)
 	    if $use_router_pos; then
-			lazy 00 uci set owm.settings.postal_street=$val
+			street=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.postal_street='"'$street'"''
 	    fi
 	    ;;
 	router_pos_zip)
 	    if $use_router_pos; then
-			lazy 00 uci set owm.settings.postal_zip=$val
+			zip=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.postal_zip='"'$zip'"''
 	    fi
 	    ;;
 	router_pos_city)
 	    if $use_router_pos; then
-			lazy 00 uci set owm.settings.postal_city=$val
+			city=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.postal_city='"'$city'"''
 	    fi
 	    ;;
 	router_pos_country)
 	    if $use_router_pos; then
-			lazy 00 uci set owm.settings.postal_country=$val
+			country=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.postal_country='"'$country'"''
 	    fi
 	    ;;
 	esac
-done
-if $use_router_pos; then
-	lazy 99 uci commit owm
-fi <<EOF
+done <<EOF
 $(tr '=&' ' \n' | sort)
 EOF
+if $use_router_pos; then
+	lazy 99 uci commit owm
+fi 
