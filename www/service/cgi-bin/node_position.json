@@ -6,32 +6,44 @@ SCRIPT_NAME=$0
 exec 666>>/tmp/lock/geolocate
 flock -w 3 -s 666 || true
 
-    [ -n "$(uci -q get owm.settings.public)" ] && public=$(uci -q get owm.settings.public)
-    [ -n "$(uci -q get owm.settings.lon)" ] && lon=$(uci -q get owm.settings.lon)
-    [ -n "$(uci -q get owm.settings.lat)" ] && lat=$(uci -q get owm.settings.lat)
-    [ -n "$(uci -q get owm.settings.postal_name)" ] && name=$(uci -q get owm.settings.postal_name)
-    [ -n "$(uci -q get owm.settings.postal_street)" ] && street=$(uci -q get owm.settings.postal_street)
-    [ -n "$(uci -q get owm.settings.postal_zip)" ] && zip=$(uci -q get owm.settings.postal_zip)
-    [ -n "$(uci -q get owm.settings.postal_city)" ] && city=$(uci -q get owm.settings.postal_city)
-    [ -n "$(uci -q get owm.settings.postal_country)" ] && country=$(uci -q get owm.settings.postal_country)
+[ -n "$(uci -q get owm.settings.public)" ] && public=$(uci -q get owm.settings.public)
+[ -n "$(uci -q get owm.settings.lon)" ] && lon=$(uci -q get owm.settings.lon)
+[ -n "$(uci -q get owm.settings.lat)" ] && lat=$(uci -q get owm.settings.lat)
+[ -n "$(uci -q get owm.settings.postal_name)" ] && name=$(uci -q get owm.settings.postal_name)
+[ -n "$(uci -q get owm.settings.postal_street)" ] && street=$(uci -q get owm.settings.postal_street)
+[ -n "$(uci -q get owm.settings.postal_zip)" ] && zip=$(uci -q get owm.settings.postal_zip)
+[ -n "$(uci -q get owm.settings.postal_city)" ] && city=$(uci -q get owm.settings.postal_city)
+[ -n "$(uci -q get owm.settings.postal_country)" ] && country=$(uci -q get owm.settings.postal_country)
+[ -n "$(uci -q get owm.settings.interfaces)" ] && interfaces=$(uci -q get owm.settings.interfaces)
+[ -n "$(uci -q get owm.settings.gen_interfaces)" ] && gen_interfaces=$(uci -q get owm.settings.gen_interfaces)
+[ -n "$(uci -q get owm.settings.gen_routes)" ] && gen_routes=$(uci -q get owm.settings.gen_routes)
+[ -n "$(uci -q get owm.settings.gen_firmware)" ] && gen_firmware=$(uci -q get owm.settings.gen_firmware)
 
-    if ! $public; then
+if ! $public; then
 	fail 403 'Geolokation deaktiviert'
-    fi
-    if [ -z "$lon" -o -z "$lat" ]; then
-	fail 503 'Position noch nicht ermittelt'
-    fi
+fi
 
-	local jsondata=$(
-          . /usr/share/libubox/jshn.sh
-          json_init
-          [ -n "$name" ] && json_add_string "router_pos_name" "$name"
-          [ -n "$street" ] && json_add_string "router_pos_street" "$street"
-          [ -n "$zip" ] && json_add_string "router_pos_zip" "$zip"
-		  [ -n "$city" ] && json_add_string "router_pos_city" "$city"
-		  [ -n "$country" ] && json_add_string "router_pos_country" "$country"
-          echo $(json_dump)
-          )
+if [ -z "$lon" -o -z "$lat" ]; then
+	fail 503 'Position noch nicht ermittelt'
+fi
+
+local jsondata=$(
+	. /usr/share/libubox/jshn.sh
+	json_init
+	[ -n "$name" ] && json_add_string "router_pos_name" "$name"
+	[ -n "$street" ] && json_add_string "router_pos_street" "$street"
+	[ -n "$zip" ] && json_add_string "router_pos_zip" "$zip"
+	[ -n "$city" ] && json_add_string "router_pos_city" "$city"
+	[ -n "$country" ] && json_add_string "router_pos_country" "$country"
+	[ -n "$interfaces" ] && json_add_string "router_pos_interfaces" "$interfaces"
+	
+	[ -n "$gen_interfaces" ] && json_add_array "router_pos_gen_interfaces" && json_add_string 0 "$gen_interfaces" && json_close_array
+	[ -n "$gen_routes" ] && json_add_array "router_pos_gen_routes" && json_add_string 0 "$gen_routes" && json_close_array
+	[ -n "$gen_firmware" ] && json_add_array "router_pos_gen_firmware" && json_add_string 0 "$gen_firmware" && json_close_array
+	
+	echo $(json_dump)
+	)
+
 	#Avoiding stupid missing double function of jshn.sh/jshn so we have to add them manually
 	if [ -n "$lat" -a -n "$lon" -a "$jsondata" == "{ }" ]; then 
 		jsondata='{"router_pos_lon": '$lon',"router_pos_lat": '$lat'}'

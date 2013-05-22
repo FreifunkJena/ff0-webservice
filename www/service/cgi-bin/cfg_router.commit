@@ -20,6 +20,10 @@ delete owm.settings.postal_street
 delete owm.settings.postal_zip
 delete owm.settings.postal_city
 delete owm.settings.postal_country
+set owm.settings.interfaces='mesh'
+set owm.settings.gen_interfaces='true'
+set owm.settings.gen_routes='false'
+set owm.settings.gen_firmware='true'
 EOF
     fi
     if $auto && have_internet; then
@@ -142,6 +146,30 @@ while read key val; do
 	    if $use_router_pos; then
 			country=$(echo $val | tr -s '+' ' ')
 			lazy 00 eval 'uci set owm.settings.postal_country='"'$country'"''
+	    fi
+		;;
+	router_pos_interfaces)
+	    if $use_router_pos; then
+			interfaces=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.interfaces='"'$interfaces'"''
+	    fi
+		;;
+	router_pos_gen_interfaces)
+	    if $use_router_pos; then
+			gen_interfaces=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.gen_interfaces='"'$gen_interfaces'"''
+	    fi
+		;;
+	router_pos_gen_routes)
+	    if $use_router_pos; then
+			gen_routes=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.gen_routes='"'$gen_routes'"''
+	    fi
+		;;
+	router_pos_gen_firmware)
+	    if $use_router_pos; then
+			gen_firmware=$(echo $val | tr -s '+' ' ')
+			lazy 00 eval 'uci set owm.settings.gen_firmware='"'$gen_firmware'"''
 	    fi
 	    ;;
 	esac
