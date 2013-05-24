@@ -49,7 +49,7 @@ function fillData(key, val, def) {
 
 var loadBootstrap = $.ajax({url: "js/bootstrap.min.js", dataType: "script", cache: true});
 var loadCfg = {};
-$.each(['client_net', 'cfg_client', 'cfg_router', 'node_position'],
+$.each(['client_net', 'cfg_router', 'node_position'],
        function(i,name) {
 	  loadCfg[name] = $.getJSON('cgi-bin/' + name + '.json')
 	      .done(function(res) {

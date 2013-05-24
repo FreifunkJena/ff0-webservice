@@ -8,17 +8,6 @@ if [ $REQUEST_METHOD == POST ]; then
     . /www/service/cgi-bin/cfg_router.commit
 fi
 
-# compute geo mode value (if not changed during this request)
-if [ -z "$router_geo" ]; then
-    if [ "$(uci get owm.settings.public)" == 'false' ]; then
-	router_geo=private
-    elif [ "$(uci get owm.settings.automatic)" == 'false' ]; then
-	router_geo=manual
-    else
-	router_geo=automatic
-    fi
-fi
-
 echo -e "Status: 200 OK\r
 Content-Type: application/json\r
 \r
@@ -26,8 +15,7 @@ Content-Type: application/json\r
  \"router_password\":  \"${router_password-$(  uci get system.mesh.webif_password)}\",
  \"router_qos\":        [${router_qos-$(       uci get system.mesh.qos)}],
  \"router_vpn\":        [${router_vpn-$(       uci get system.mesh.vpn)}],
- \"router_filter_wan\": [${router_filter_wan-$(uci get system.mesh.filter_wan)}],
- \"router_geo\":        [\"$router_geo\"]
+ \"router_filter_wan\": [${router_filter_wan-$(uci get system.mesh.filter_wan)}]
 }"
 
 exec_lazy

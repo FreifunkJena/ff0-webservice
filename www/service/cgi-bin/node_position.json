@@ -7,6 +7,7 @@ exec 666>>/tmp/lock/geolocate
 flock -w 3 -s 666 || true
 
 [ -n "$(uci -q get owm.settings.public)" ] && public=$(uci -q get owm.settings.public)
+[ -n "$(uci -q get owm.settings.automatic)" ] && automatic=$(uci -q get owm.settings.automatic)
 [ -n "$(uci -q get owm.settings.lon)" ] && lon=$(uci -q get owm.settings.lon)
 [ -n "$(uci -q get owm.settings.lat)" ] && lat=$(uci -q get owm.settings.lat)
 [ -n "$(uci -q get owm.settings.postal_name)" ] && name=$(uci -q get owm.settings.postal_name)
@@ -19,12 +20,15 @@ flock -w 3 -s 666 || true
 [ -n "$(uci -q get owm.settings.gen_routes)" ] && gen_routes=$(uci -q get owm.settings.gen_routes)
 [ -n "$(uci -q get owm.settings.gen_firmware)" ] && gen_firmware=$(uci -q get owm.settings.gen_firmware)
 
-if ! $public; then
-	fail 403 'Geolokation deaktiviert'
-fi
-
-if [ -z "$lon" -o -z "$lat" ]; then
-	fail 503 'Position noch nicht ermittelt'
+# compute geo mode value (if not changed during this request)
+if [ -z "$router_geo" ]; then
+    if [ "$public" == 'false' ]; then
+	router_geo=private
+    elif [ "$automatic" == 'false' ]; then
+	router_geo=manual
+    else
+	router_geo=automatic
+    fi
 fi
 
 local jsondata=$(
@@ -37,6 +41,7 @@ local jsondata=$(
 	[ -n "$country" ] && json_add_string "router_pos_country" "$country"
 	[ -n "$interfaces" ] && json_add_string "router_pos_interfaces" "$interfaces"
 	
+	[ -n "$router_geo" ] && json_add_array "router_geo" && json_add_string 0 "$router_geo" && json_close_array
 	[ -n "$gen_interfaces" ] && json_add_array "router_pos_gen_interfaces" && json_add_string 0 "$gen_interfaces" && json_close_array
 	[ -n "$gen_routes" ] && json_add_array "router_pos_gen_routes" && json_add_string 0 "$gen_routes" && json_close_array
 	[ -n "$gen_firmware" ] && json_add_array "router_pos_gen_firmware" && json_add_string 0 "$gen_firmware" && json_close_array
