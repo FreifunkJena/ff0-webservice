@@ -47,7 +47,7 @@
       und Resourcen mit anderen Freifunkern teilen.</span></p>
     </div>
 
-    <div class="span4">
+    <div class="span4 alert alert-success" id="accept">
       <h2>Internet</h2>
       <p>Ein Zugang ins Internet ist m&ouml;glich, da einige
 	Freifunker ihre privaten Internetzug&auml;nge zur
@@ -73,6 +73,13 @@
 	<input type="submit" class="btn btn-primary" value="Akzeptieren" />
 	<a class="btn" href="/services.html">Ablehnen</a>
       </form>
+    </div>
+    
+    <div class="span4 alert alert-error hidden" id="offline2">
+      <h2>Internet</h2>
+      <p>Das Internet ist in dieser Wolke vorr&uuml;bergehend nicht
+      verf&uuml;gbar.
+      </p>
     </div>
 
     <div class="span4">
@@ -104,6 +111,8 @@
 $.getJSON("cgi-bin/online.json", function(haveInternet) {
     if(!haveInternet)
 	$('#offline').removeClass('hidden');
+    $('#offline2').removeClass('hidden');
+    $('#accept').addClass('hidden');
     $('#more-button').addClass('hidden');
 });
 
