@@ -5,17 +5,18 @@
 x=0
 current_time=$(date +%s)
 splash_check() {
-   config_get mac "$1" mac
-   config_get time "$1" time
-   let time_check=$time+$timeout
-   if [ $time_check -gt  $current_time ]; then
+	config_get mac "$1" mac
+	config_get time "$1" time
+	local chain="$2"
+	let time_check=$time+$timeout
+	if [ $time_check -gt  $current_time ]; then
 	# user is splashed
-       iptables -t nat -I $chain -m mac --mac-source $mac -j ACCEPT
-   else
+		iptables -t nat -I $chain -m mac --mac-source $mac -j ACCEPT
+	else
 	# user is no longer splashed / must click again
-       uci delete splash_users.@user[$x]
-   fi
-   let x=$x+1
+		uci delete splash_users.@user[$x]
+	fi
+	let x=$x+1
 }
 
 state_is_queen() {
@@ -39,17 +40,23 @@ if state_is_queen; then
     # replace the old chain with the new one; this ensures that a user
     # stays splashed during the runtime of this script
     chain_id=$(($chain_id + 1))
-    chain=$chain_prefix$chain_id
-    echo $chain_id > $chain_id_file
-    iptables -t nat -N $chain
+	for interface in $(uci -q get splash.settings.interfaces)
+	do
+		local chain_postfix="_$interface"
+		local chain=$chain_prefix$chain_id$chain_postfix
+		echo $chain_id > $chain_id_file
+		iptables -t nat -N $chain
 
-    config_load splash_users
-    config_foreach splash_check user
-    iptables -t nat -I prerouting_inet_splashed -j $chain
-    while iptables -t nat -D prerouting_inet_splashed 2 &>/dev/null; do :; done
+	config_load splash_users
+	config_foreach splash_check user $chain
+	iptables -t nat -I prerouting_inet_splashed_$interface -j $chain
+	while iptables -t nat -D prerouting_inet_splashed_$interface 2 &>/dev/null; do :; done
 else
-    # no working gw -> remove reference to iptable copy of splash db
-    iptables -t nat -F prerouting_inet_splashed
+	# no working gw -> remove reference to iptable copy of splash db
+	for interface in $(uci -q get splash.settings.interfaces)
+	do
+		iptables -t nat -F prerouting_inet_splashed_$interface
+	done
 fi
 
 # remove old splash_db chains
