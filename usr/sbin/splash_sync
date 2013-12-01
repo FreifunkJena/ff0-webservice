@@ -46,22 +46,22 @@ if state_is_queen; then
 		local chain=$chain_prefix$chain_id$chain_postfix
 		echo $chain_id > $chain_id_file
 		iptables -t nat -N $chain
-
-	config_load splash_users
-	config_foreach splash_check user $chain
-	iptables -t nat -I prerouting_inet_splashed_$interface -j $chain
-	while iptables -t nat -D prerouting_inet_splashed_$interface 2 &>/dev/null; do :; done
+		config_load splash_users
+		config_foreach splash_check user $chain
+		iptables -t nat -I inet_splashed_$interface -j $chain
+		while iptables -t nat -D inet_splashed_$interface 2 &>/dev/null; do :; done
+	done
 else
 	# no working gw -> remove reference to iptable copy of splash db
 	for interface in $(uci -q get splash.settings.interfaces)
 	do
-		iptables -t nat -F prerouting_inet_splashed_$interface
+		iptables -t nat -F inet_splashed_$interface
 	done
 fi
 
 # remove old splash_db chains
-for i in $(iptables -t nat -L | grep ^Chain | grep '0 references' \
-         | cut -f2 -d' ' | grep ^splash_db); do
-    iptables -t nat -F $i
-    iptables -t nat -X $i
+for i in $(iptables -t nat -L | grep ^Chain | grep '0 references' | cut -f2 -d' ' | grep ^splash_db)
+do
+	iptables -t nat -F $i
+	iptables -t nat -X $i
 done
