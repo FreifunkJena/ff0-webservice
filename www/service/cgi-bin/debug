@@ -7,7 +7,7 @@ echo "<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head
 echo "<h1>Router Status</h1>"
 echo "<h2>Main Info</h2>"
 echo "<pre>"
-echo "<b>Version:</b> "$(cat /etc/banner | grep config) | cat
+echo "<b>Version:</b> "$(cat /etc/banner | grep Version | awk -F ' ' '{ print $3 }') | cat
 echo "</pre>"
 echo "<pre>"
 echo "<b>NodeID:</b> "$(cat /etc/nodeid) | cat
