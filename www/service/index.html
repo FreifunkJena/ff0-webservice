@@ -108,7 +108,7 @@
 <script src="/js/bootstrap.min.js" defer></script>
 <script>
 
-$.getJSON("/cgi-bin/online.json", function(haveInternet) {
+$.getJSON("/cgi-bin/cgi-bin/online.json", function(haveInternet) {
     if(!haveInternet)
 	$('#offline').removeClass('hidden');
     $('#offline2').removeClass('hidden');
