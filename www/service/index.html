@@ -108,7 +108,7 @@
 <script src="/js/bootstrap.min.js" defer></script>
 <script>
 
-$.getJSON("cgi-bin/online.json", function(haveInternet) {
+$.getJSON("/cgi-bin/online.json", function(haveInternet) {
     if(!haveInternet)
 	$('#offline').removeClass('hidden');
     $('#offline2').removeClass('hidden');
@@ -116,7 +116,7 @@ $.getJSON("cgi-bin/online.json", function(haveInternet) {
     $('#more-button').addClass('hidden');
 });
 
-$.getJSON("cgi-bin/client_net.json", function(clientInfo) {
+$.getJSON("/cgi-bin/client_net.json", function(clientInfo) {
     if(clientInfo.wired) {
         $('#settings').removeClass('hidden');
         $('#nav').removeClass('hidden');
