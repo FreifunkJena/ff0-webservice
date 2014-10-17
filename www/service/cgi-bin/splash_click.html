@@ -7,7 +7,7 @@
 # decode request params
 URL="http://$(sed -n 's/^.*target_url=\([^&]*\).*$/\1/p' | urldecode || true)"
 #URL="http://sotun.de/"
-USER_MAC="$(grep 'br-mesh' /proc/net/arp | grep "^$REMOTE_HOST " | awk '{print $4;}')"
+USER_MAC=$(grep 'br-mesh' /proc/net/arp | grep "^$REMOTE_HOST " | awk '{print $4;}')
 [ -n "$USER_MAC" ]
 
 # check if user is already splashed; splash otherwise
