@@ -16,17 +16,25 @@
 
 <div class="container-fluid">
 
+  <div class="alert alert-error hidden" id="offline">
+    <p><h2>Das Internet ist in dieser Wolke vorr&uuml;bergehend nicht
+      verf&uuml;gbar.</h2><span class="hidden" id="local_services"> Die <a href="/services.html"><i class="icon-home"></i>
+      lokalen Dienste</a> der Wolke stehen weiter zur
+      Verf&uuml;gung.</span></p>
+  </div>
+
   <div class="hero-unit">
     <img class="pull-right" src="/img/logo.png">
     <h1><a id="content" name="content"></a>Willkommen!</h1>
 
     <p>Du bist jetzt mit dem freien Funknetz
-    <a href="http://www.freifunk-jena.de">Freifunk Jena</a>
+    <a href="http://freifunk-jena.de">Freifunk Jena</a>
     verbunden.</p>
 
     <p>Wir sind ein experimentelles Gemeinschaftsnetzwerk, aber kein
     Internetanbieter.</p>
 
+    <p id="more-button"><a href="http://freifunk-jena.de" class="btn btn-success btn-large">Mehr lernen</a></p>
     <p><a href="http://www.freifunk-jena.de" class="btn btn-success btn-large">Mehr lernen</a></p>
   </div>
 
@@ -47,7 +55,7 @@
       und Resourcen mit anderen Freifunkern teilen.</span></p>
     </div>
 
-    <div class="span4">
+    <div class="span4 alert alert-success" id="accept">
       <h2>Internet</h2>
       <p>Ein Zugang ins Internet ist m&ouml;glich, da einige
 	Freifunker ihre privaten Internetzug&auml;nge zur
@@ -71,8 +79,15 @@
 	<input type="password" name="password" value="Hotspot" style="display:none">
 	<input type="hidden" name="target_url" value="targeturl"/>
 	<input type="submit" class="btn btn-primary" value="Akzeptieren" />
-	<a class="btn" href="/services.html">Ablehnen</a>
+	<a class="btn hidden" href="/services.html">Ablehnen</a>
       </form>
+    </div>
+    
+    <div class="span4 alert alert-error hidden" id="offline2">
+      <h2>Internet</h2>
+      <p>Das Internet ist in dieser Wolke vorr&uuml;bergehend nicht
+      verf&uuml;gbar.
+      </p>
     </div>
 
     <div class="span4">
@@ -83,10 +98,10 @@
       </p>
 
       <ul>
-	<li><a href="http://www.freifunk-jena.de/">Werde selbst
+	<li><a href="http://freifunk-jena.de/">Werde selbst
 	Freifunker</a>. Dazu muss man nur einen handels&uuml;blichen
 	WLAN-Router ins Fensterbrett stellen.</a></li>
-	<li><a href="http://www.freifunk-jena.de/">Spende</a> ein paar Euro, damit wir unser
+	<li><a href="http://freifunk-jena.de/">Spende</a> ein paar Euro, damit wir unser
 	Netz weiter betreiben und ausbauen k&ouml;nnen.</li>
 	<li>Wenn Du selbst privat genutzte WLAN-Ger&auml;te betreibst
 	nutze daf&uuml;r bitte andere Kan&auml;le
@@ -101,12 +116,15 @@
 <script src="/js/bootstrap.min.js" defer></script>
 <script>
 
-$.getJSON("cgi-bin/online.json", function(haveInternet) {
+$.getJSON("/cgi-bin/cgi-bin/online.json", function(haveInternet) {
     if(!haveInternet)
 	$('#offline').removeClass('hidden');
+    $('#offline2').removeClass('hidden');
+    $('#accept').addClass('hidden');
+    $('#more-button').addClass('hidden');
 });
 
-$.getJSON("cgi-bin/client_net.json", function(clientInfo) {
+$.getJSON("/cgi-bin/client_net.json", function(clientInfo) {
     if(clientInfo.wired) {
         $('#settings').removeClass('hidden');
         $('#nav').removeClass('hidden');

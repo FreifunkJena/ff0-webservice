@@ -7,7 +7,7 @@ echo "<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head
 echo "<h1>Router Status</h1>"
 echo "<h2>Main Info</h2>"
 echo "<pre>"
-echo "<b>Version:</b> "$(cat /etc/banner | grep config) | cat
+echo "<b>Version:</b> "$(cat /etc/banner | grep Version | awk -F ' ' '{ print $3 }') | cat
 echo "</pre>"
 echo "<pre>"
 echo "<b>NodeID:</b> "$(cat /etc/nodeid) | cat
@@ -30,6 +30,10 @@ echo "<h2>Batman-ADV</h2>"
 echo "<h3>Batman Version</h3>"
 echo "<pre>"
 batctl -v | cat
+echo "</pre>"
+echo "<h3>Batman Interfaces</h3>"
+echo "<pre>"
+batctl if | cat
 echo "</pre>"
 echo "<h3>Originators</h3>"
 echo "<pre>"
@@ -62,7 +66,7 @@ echo "</pre>"
 echo "<h2>Network & Wifi</h2>"
 echo "<h3>Network Interfaces</h3>"
 echo "<pre>"
-ifconfig | cat
+ip addr | cat
 echo "</pre>"
 echo "<h3>Network Bridge Status</h3>"
 echo "<pre>"
@@ -74,12 +78,21 @@ iw dev wlan0-1 station dump | cat
 echo "</pre>"
 echo "<h3>Wifi AP Stations</h3>"
 echo "<pre>"
-iw dev wlan0 station dump | cat 
+iw dev wlan0 station dump | cat
 echo "</pre>"
 echo "<h2>P2ptbl Info</h2>"
 echo "<h3>GWIP Table</h3>"
 echo "<pre>"
-p2ptbl show /tmp/p2ptbl/gwip | cat
+p2ptbl show /tmp/p2ptbl/meshfsm/gwip | cat
+echo "</pre>"
+echo "<h2>FSM Info</h2>"
+echo "<h3>Netifd Meshfsm Log</h3>"
+echo "<pre>"
+cat /tmp/netifd-fsm-meshfsm.log
+echo "</pre>"
+echo "<h3>Meshfsm Log</h3>"
+echo "<pre>"
+cat /tmp/fsm-inetable-meshfsm.log
 echo "</pre>"
 echo "<h2>System Info</h2>"
 echo "<h3>Processes</h3>"
