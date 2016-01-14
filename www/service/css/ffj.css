@@ -62,3 +62,11 @@ a.ui.inverted.magenta.header:hover {
   color: #ffffff;
   text-shadow: none;
 }
+
+.ui.magenta.segment:not(.inverted) {
+  border-top: 2px solid #dc0067;
+}
+.ui.inverted.magenta.segment {
+  background-color: #dc0067 !important;
+  color: #ffffff !important;
+}

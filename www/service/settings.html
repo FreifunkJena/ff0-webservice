@@ -1,198 +1,202 @@
 <html lang="de">
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Freifunk Jena</title>
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/ffj.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freifunk Jena</title>
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/reset.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/site.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/container.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/header.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/divider.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/icon.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/list.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/segment.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/menu.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/button.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/image.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/message.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/grid.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/form.css">
+    <link rel="stylesheet" href="./css/ffj.css">
+  </head>
+  <body>
 
-	<div class="navbar"><div class="navbar-inner"><div class="container-fluid">
-		<a class="brand" href="/">Freifunk Jena </a>
-	<div class="nav-collapse"><ul class="nav">
-		<li class="active"><a href="/settings.html"><i class="icon-cog	icon-white"></i> Einstellungen</a></li>
-	</ul></div>
-	</div></div></div>
+    <header class="ui main container">
+      <div class="ui magenta menu">
+        <a href="https://www.freifunk-jena.de" class="item">Freifunk Jena</a>
+      </div>
+    </header>
 
-	<div class="container-fluid">
+    <main class="ui main container">
+      <div class="ui inverted magenta segment">
+        <h1 class="ui header">Routereintsellungen für „{{ hostname }}“</h1>
+      </div>
 
-	<div class="tabbable tabs-left"><!-- TODO: remove tabs-left if screen is too narrow !-->
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="#overview" data-toggle="tab">&Uuml;bersicht</a></li>
-		<li><a href="#node" data-toggle="tab">Router</a></li>
-	</ul>
+      <div class="ui segment">
+        <h2 class="ui magenta dividing header">Allgemein</h2>
+        <form class="ui form">
+          <div class="field">
+            <label>Hostname</label>
+            <input name="hostname" placeholder="Hostname" type="text">
+          </div>
+          <button class="ui magenta button" type="submit">Speichern</button>
+        </form>
+      </div>
 
-	<div class="tab-content">
-	<div class="tab-pane active" id="overview">
-	<div class="container-fluid">
-	<div class="span3">
-		<p>Unter <a href="#device" data-toggle="tab">Mein
-		Ger&auml;t</a> kannst Du einstellen, wie sich Dein
-		Computer im Freifunknetzwerk verhalten soll.</p>
+      <div class="ui segment">
+        <h2 class="ui magenta dividing header">Sicherheit</h2>
+        <form class="ui form">
+          <div class="field">
+            <label>SSH-Passwort</label>
+            <input name="hostname" placeholder="Hostname" type="text">
+            <div class="">
+              <p>
+                Dieses Passwort muss geändert werden, da der Zugang
+                zum Router sonst mit den standard Logindaten möglich
+                ist!
+              </p>
+              <p>
+                <strong>Kein wichtiges Passwort verwenden!</strong>
+                Das hier angegebene Passwort wird unsicher über das
+                Netzwerk übertragen.
+              </p>
+              <p>
+                Das Passwort sollte am besten nach dem Login über SSH
+                geändert werden.
+              </p>
+            </div>
+          </div>
+          <button class="ui magenta button" type="submit">Speichern</button>
+        </form>
+      </div>
 
-		<p>Dein Computer wird dabei &uuml;ber seine <a href="#"
-		id="tooltip-mac">MAC-Adresse</a> wiedererkannt. Deine aktuelle MAC-Adresse ist:</p>
-	
-		<p><pre class="data-client_mac loading"></pre></p>
-	</div>
-	
-	<div class="span3 only-wired hidden">
-		<p>Unter <a href="#lan" data-toggle="tab">Ger&auml;te im
-		LAN</a> kannst Du einstellen, wie sich per Kabel
-		angeschlossene Ger&auml;te mit dem Freifunknetz
-		verbinden sollen und Dienste im Freifunknetz bekannt
-		machen.</p>
-	</div>
-
-	<div class="span3">
-		<p>Um Deinen Freifunk <a href="#node"
-		data-toggle="tab">Router</a> zu konfigurieren, musst Du
-		Dich per Ethernetkabel mit ihm verbinden. Dies
-		verhindert unberechtigen Zugriff auf das Ger&auml;t.</p>
-
-		<p class="data-net_desc loading"></p>
-	</div>
-
-	<div class="span3">
-		<p>Wenn Du noch keinen eigenen Router hast, kannst Du Dir
-		unter <a href="http://www.freifunk-jena.de">freifunk-jena.de</a>
-		einen besorgen.</p>
-	</div>
-	</div>
-	</div>
-
- <div class="tab-pane" id="node">
-	<h3>Routereinstellungen <small>f&uuml;r <span class="data-router_name loading"></span></h3>
-
-	<form class="well" action="cgi-bin/cfg_router.json" method="post">
-		<h4>Hostname</h4>
-		<input type="text" name="router_name" class="data">
-		<input type="submit" class="btn btn-mini disabled" value="Speichern">
-	</form>
-
-	<form class="well" action="cgi-bin/cfg_router.json" method="post">
-		<h4>SSH-Passwort</h4>
-		<input type="password" name="router_ssh_password" class="data">
-		<input type="submit" class="btn btn-mini disabled" value="Speichern">
-
-		<div class="row-fluid">
-		<div class="span6">
-			<p>Dieses Passwort muss ge&auml;ndert werden, da der Zugang
-			zum Router sonst mit den standard Logindaten m&ouml;glich ist!.</p>
-		</div>
-
-		<div class="span6">
-			<p><b>Kein wichtiges Passwort verwenden!</b>Das hier
-			angegebene Passwort wird unsicher &uuml;ber das 
-			Netzwerk &uuml;bertragen.</p>
-
-			<p>Das Passwort sollte am besten nach dem Login &uuml;ber SSH
-			ge&auml;ndert werden.</p>
-		</div>
-		</div>
-	</form>
-	
-	<!-- <form class="well" action="cgi-bin/cfg_router.json" method="post">
-	<h4>Internetzugang</h4>
-	<label class="checkbox">
-		<input type="checkbox" name="router_qos" value="true" class="data">
-		LAN-Traffic gegen&uuml;ber WLAN-Traffic bevorzugen (QoS)
-	</label>
-	<label class="checkbox">
-		<input type="checkbox" name="router_vpn" value="true" class="data">
-		VPN verwenden
-	</label>
-	<label class="checkbox">
-		<input type="checkbox" name="router_filter_wan" value="true" class="data">
-		Zugriff auf lokale Netzwerke hinterm WAN-Port sperren
-	</label>
-	<input type="submit" class="btn btn-mini disabled" value="Speichern">
-	</form> -->
-
-	<form class="well" action="cgi-bin/cfg_router.json" method="post" id="geo">
-		<h4>Map Updates</h4>
-		<div class="row-fluid">
-		
-		
-		<div class="span6">
-		<div><h5>Haupteinstellungen</h5></div>
-			<p>Damit die Map-Updates funktionieren muss mindestens der Hostname sowie <br>
-			der Breiten- und L&auml;ngengrad angeben werden. </p>
-			<!-- automatic mode is currently not working :( 
-			<label class="radio">
-			<input type="radio" name="router_geo" class="data" disabled="disabled" value="automatic">Map Updates aktivieren (Automatische Positionsermittlung)
-			</label>
-			-->
-			<label class="radio">
-			<input type="radio" name="router_geo" class="data" value="manual">Map Updates aktivieren (Manuelle Positionseingabe)
-			</label>
-			<label class="radio">
-			<input type="radio" name="router_geo" class="data" value="private">Map Updates deaktivieren (L&ouml;scht alle Einstellungen)
-			</label>
-
-		<div><h5>Adress-Informationen</h5></div>
-			<div>Name<br>
-			<input type="text" name="router_pos_name" class="data"></div>
-			<div>Strasse<br>
-			<input type="text" name="router_pos_street" class="data"></div>
-			<div>Postleitzahl<br>
-			<input type="text" name="router_pos_zip" class="data"></div>
-			<div>Ort<br>
-			<input type="text" name="router_pos_city" class="data"></div>
-			<div>Land<br>
-			<input type="text" name="router_pos_country" class="data"></div>
-		</div>
-
-		<div class="span6">
-		<div><h5>Routerposition</h5></div>
-		<div>Breitengrad (Latitude)<br>
-			<input type="text" name="router_pos_lat" class="data"></div>
-		<div>L&auml;ngengrad (Longitude)<br>
-			<input type="text" name="router_pos_lon" class="data"></div>
-
-		<div><h5>Netzwerk-Informationen</h5></div>
-			<p>&Uuml;ber die Map k&ouml;nnen zus&auml;tzlich Netzwerk-Informationen wie die<br>
-			momentane IP-Adresse abgerufen werden wenn diese Option aktiviert ist.<br>
-			Die zu &uuml;bertragenen Interfaces k&ouml;nnen in dem Feld darunter<br>
-			angegeben werden.(Space seperated)</p>
-			
-			<label class="radio">
-			<input type="radio" name="router_pos_gen_interfaces" class="data" value="true">Netzwerk-Infos &uuml;bertragen
-			</label>
-			<label class="radio">
-			<input type="radio" name="router_pos_gen_interfaces" class="data" value="false">Netzwerk-Infos <b>nicht</b> &uuml;bertragen
-			</label>
-			<h6>Default-Routes</h6>
-			<label class="radio">
-			<input type="radio" name="router_pos_gen_routes" class="data" value="true">Default-Routes &uuml;bertragen
-			</label>
-			<label class="radio">
-			<input type="radio" name="router_pos_gen_routes" class="data" value="false">Default-Routes <b>nicht</b> &uuml;bertragen
-			</label>
-			<div>Netzwerk Interfaces (Default: mesh)<br>
-			<input type="text" name="router_pos_interfaces" class="data"></div>
-
-		<div><h5>Firmware-Informationen</h5></div>
-			<p>Die Firmware-Informationen beininhalten den Firmwarenamen sowie die<br>
-			Firmwareversion<p>
-			<label class="radio">
-			<input type="radio" name="router_pos_gen_firmware" class="data" value="true">Firmware-Infos &uuml;bertragen
-			</label>
-			<label class="radio">
-			<input type="radio" name="router_pos_gen_firmware" class="data" value="false">Firmware-Infos <b>nicht</b> &uuml;bertragen
-			</label>
-		</div>
-	</div>
-	<input type="submit" class="btn btn-mini disabled" value="Speichern">
-	</form>
-
-	</div>
-	</div>
-</div>
-</div>
-
-<script src="/js/jquery.min.js"></script>
-<script src="/js/settings.js"></script>
-
-</body>
+      <div class="ui segment">
+        <h2 class="ui magenta dividing header">Karteneinstellungen</h2>
+        <h3 class="ui magenta dividing header">Haupteinstellungen</h3>
+        <p>
+          Damit die Map-Updates funktionieren muss mindestens der
+          Hostname sowie der Breiten- und Längengrad angeben werden.
+        </p>
+        <form class="ui form">
+          <div class="grouped fields">
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
+                <label>Map Updates aktivieren (Manuelle Positionseingabe)</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input class="hidden" tabindex="0" name="router_geo" value="private" checked="" type="radio">
+                <label>Map Updates deaktivieren (Löscht alle Einstellungen)</label>
+              </div>
+            </div>
+          </div>
+          <div class="ui stackable grid">
+            <div class="eight wide column">
+              <h3 class="ui magenta dividing header">Adress-Informationen</h3>
+              <div class="field">
+                <label>Name</label>
+                <input name="name" placeholder="Name" type="text">
+              </div>
+              <div class="field">
+                <label>Straße</label>
+                <input name="name" placeholder="Straße" type="text">
+              </div>
+              <div class="field">
+                <label>Postleitzahl</label>
+                <input name="name" placeholder="Postleitzahl" type="text">
+              </div>
+              <div class="field">
+                <label>Ort</label>
+                <input name="name" placeholder="Ort" type="text">
+              </div>
+              <div class="field">
+                <label>Land</label>
+                <input name="name" placeholder="Land" type="text">
+              </div>
+            </div>
+            <div class="eight wide column">
+              <h3 class="ui magenta dividing header">Router-Position</h3>
+              <div class="field">
+                <label>Breitengrad (Latitude)</label>
+                <input name="latitude" placeholder="Breitengrad" type="text">
+              </div>
+              <div class="field">
+                <label>Längengrad (Longitude)</label>
+                <input name="longitude" placeholder="Längengrad" type="text">
+              </div>
+            </div>
+            <div class="eight wide column">
+              <h3 class="ui magenta dividing header">Netzwerk-Informationen</h3>
+              <p>
+                Über die Map können zusätzlich Netzwerk-Informationen
+                wie die momentane IP-Adresse abgerufen werden wenn
+                diese Option aktiviert ist.  Die zu übertragenen
+                Netzwerkschnittstellen können in dem Feld darunter
+                angegeben werden (Getrennt per Leerzeichen).
+              </p>
+              <div class="grouped fields">
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
+                    <label>Netzwerk-Informationen übertragen.</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
+                    <label>Netzwerk-Informationen nicht übertragen.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="grouped fields">
+                <label for="fruit">Standard-Routen</label>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
+                    <label>Standard-Routen übertragen.</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
+                    <label>Standard-Routen nicht übertragen.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label>Netzwerkschnittstellen</label>
+                <input name="router_pos_interfaces" placeholder="Netzwerkschnittstellen" type="text">
+              </div>
+            </div>
+            <div class="eight wide column">
+              <h3 class="ui magenta dividing header">Firmware-Informationen</h3>
+              <p>
+                Die Firmware-Informationen beininhalten den
+                Firmwarenamen sowie die Firmwareversion
+              </p>
+              <div class="grouped fields">
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
+                    <label>Firmware-Informationen übertragen.</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
+                    <label>Firmware-Informationen nicht übertragen.</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui hidden divider"></div>
+          <button class="ui magenta button" type="submit">Speichern</button>
+        </form>
+      </div>
+    </main>
+  </body>
 </html>
