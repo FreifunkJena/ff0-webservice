@@ -5,3 +5,60 @@ main {
 #offline {
   display: none;
 }
+
+/*--- freifunk magenta ---*/
+
+.ui.magenta.header {
+  color: #dc0067 !important;
+}
+a.ui.magenta.header:hover {
+  color: #c3005b !important;
+}
+.ui.magenta.dividing.header {
+  border-bottom: 2px solid #dc0067;
+}
+
+/* Inverted */
+.ui.inverted.magenta.header {
+  color: #dc0067 !important;
+}
+a.ui.inverted.magenta.header:hover {
+  color: #c3005b !important;
+}
+
+.ui.magenta.buttons .button,
+.ui.magenta.button {
+  background-color: #dc0067;
+  color: #ffffff;
+  text-shadow: none;
+  background-image: none;
+}
+.ui.magenta.button {
+  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+}
+.ui.magenta.buttons .button:hover,
+.ui.magenta.button:hover {
+  background-color: #c3005b;
+  color: #ffffff;
+  text-shadow: none;
+}
+.ui.magenta.buttons .button:focus,
+.ui.magenta.button:focus {
+  background-color: #b30054;
+  color: #ffffff;
+  text-shadow: none;
+}
+.ui.magenta.buttons .button:active,
+.ui.magenta.button:active {
+  background-color: #a9004f;
+  color: #ffffff;
+  text-shadow: none;
+}
+.ui.magenta.buttons .active.button,
+.ui.magenta.buttons .active.button:active,
+.ui.magenta.active.button,
+.ui.magenta.button .active.button:active {
+  background-color: #c3005b;
+  color: #ffffff;
+  text-shadow: none;
+}
