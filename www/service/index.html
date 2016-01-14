@@ -1,129 +1,96 @@
 <html lang="de">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Freifunk Jena</title>
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/ffj.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freifunk Jena</title>
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/reset.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/site.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/container.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/header.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/icon.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/list.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/segment.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/menu.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/button.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/image.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/message.css">
+    <link rel="stylesheet" href="./bower_components/semantic/dist/components/grid.css">
+    <link rel="stylesheet" href="./css/ffj.css">
 
-<div class="navbar"><div class="navbar-inner"><div class="container-fluid">
-<a class="brand" href="/">Freifunk Jena </a>
-<div class="nav-collapse hidden" id="nav"><ul class="nav">
-<li><a href="/settings.html"><i class="icon-cog icon-white"></i> Einstellungen</a></li>
-</ul></div>
-</div></div></div>
+  </head>
+  <body>
+    <header class="ui main container">
+      <div class="ui magenta menu">
+        <a href="https://www.freifunk-jena.de" class="item">Freifunk Jena</a>
+      </div>
+    </header>
 
-<div class="container-fluid">
+    <main class="ui main container">
+      <div class="ui segment">
+        <div class="ui stackable grid">
+          <div class="thirteen wide column">
+            <h1 class="ui magenta dividing header">Herzlich Willkommen!</h1>
+            <p>Du bist jetzt mit dem freien Funknetz Freifunk Jena verbunden.</p>
+            <p>Wir sind ein experimentelles Gemeinschaftsnetzwerk, aber kein Internetanbieter.</p>
+            <a class="ui magenta button" href="http://www.freifunk-jena.de/">
+              Mehr lernen
+            </a>
+          </div>
+          <div class="three wide column">
+            <img class="ui fluid image" src="./img/logo.png" />
+          </div>
+        </div>
+      </div>
 
-  <div class="hero-unit">
-    <img class="pull-right" src="/img/logo.png">
-    <h1><a id="content" name="content"></a>Willkommen!</h1>
-
-    <p>Du bist jetzt mit dem freien Funknetz
-    <a href="http://www.freifunk-jena.de">Freifunk Jena</a>
-    verbunden.</p>
-
-    <p>Wir sind ein experimentelles Gemeinschaftsnetzwerk, aber kein
-    Internetanbieter.</p>
-
-    <p><a href="http://www.freifunk-jena.de" class="btn btn-success btn-large">Mehr lernen</a></p>
-  </div>
-
-  <div class="alert alert-error hidden" id="offline">
-    <p><b>Das Internet ist in dieser Wolke vorr&uuml;bergehend nicht
-      verf&uuml;gbar.</b><span class="hidden" id="local_services"> Die <a href="/services.html"><i class="icon-home"></i>
-      lokalen Dienste</a> der Wolke stehen weiter zur
-      Verf&uuml;gung.</span></p>
-  </div>
-
-  <div class="row">
-    <div class="span4">
-      <h2>Lokales Netzwerk</h2>
-      <p>Im Freifunknetz kann <emph>jeder</emph> Dienste anbieten:
-      alle teilnehmenden Computer k&ouml;nnen direkt miteinander
-      kommunizieren.<span class="hidden" id="settings"> Unter <a href="/settings.html" style="white-space: nowrap"><i class="icon-cog"></i>&nbsp;Einstellungen</a>
-      kannst du festlegen, wie du das Netzwerk nutzen m&ouml;chtest
-      und Resourcen mit anderen Freifunkern teilen.</span></p>
-    </div>
-
-    <div class="span4">
-      <h2>Internet</h2>
-      <p>Ein Zugang ins Internet ist m&ouml;glich, da einige
-	Freifunker ihre privaten Internetzug&auml;nge zur
-	Verf&uuml;gung stellen. Diese Zug&auml;nge m&uuml;ssen sich
-	hier alle teilen. Bitte sei Dir dessen bewusst und verhalte
-	Dich dementsprechend:
-      </p>
-
-      <ul>
-	<li><strong>keine Filesharing-Programme</strong></li>
-	<li><strong>keine unn&ouml;tigen Downloads oder Streams</strong></li>
-	<li><strong>keine illegalen Aktivit&auml;ten</strong></li>
-      </ul>
-
-      <p>Mit einem Klick auf <em>Akzeptieren</em> kannst du f&uuml;r 1
-	Stunde unser Netz verwenden. Dann wirst du erneut aufgefordet,
-	diese Bedingungen zu akzeptieren.</p>
-
-      <form action="/cgi-bin/splash_click.html" method="POST">
-	<input type="text" name="username" value="Freifunk" style="display:none">
-	<input type="password" name="password" value="Hotspot" style="display:none">
-	<input type="hidden" name="target_url" value="targeturl"/>
-	<input type="submit" class="btn btn-primary" value="Akzeptieren" />
-	<a class="btn" href="/services.html">Ablehnen</a>
-      </form>
-    </div>
-
-    <div class="span4">
-      <h2>Mitmachen</h2>
-
-      <p>Wenn Du unsere Idee gut findest und das Netz regelm&auml;ssig
-	benutzt, dann bitten wir Dich um Unterst&uuml;tzung:
-      </p>
-
-      <ul>
-	<li><a href="http://www.freifunk-jena.de/">Werde selbst
-	Freifunker</a>. Dazu muss man nur einen handels&uuml;blichen
-	WLAN-Router ins Fensterbrett stellen.</a></li>
-	<li><a href="http://www.freifunk-jena.de/">Spende</a> ein paar Euro, damit wir unser
-	Netz weiter betreiben und ausbauen k&ouml;nnen.</li>
-	<li>Wenn Du selbst privat genutzte WLAN-Ger&auml;te betreibst
-	nutze daf&uuml;r bitte andere Kan&auml;le
-	als wir.</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<script src="/js/jquery.min.js"></script>
-<script src="/js/parse_services.js"></script>
-<script src="/js/bootstrap.min.js" defer></script>
-<script>
-
-$.getJSON("cgi-bin/online.json", function(haveInternet) {
-    if(!haveInternet)
-	$('#offline').removeClass('hidden');
-});
-
-$.getJSON("cgi-bin/client_net.json", function(clientInfo) {
-    if(clientInfo.wired) {
-        $('#settings').removeClass('hidden');
-        $('#nav').removeClass('hidden');
-    }
-});
-
-$.when(
-    $.getJSON('/cgi-bin/services.json'),
-    $.ajax({url: '/js/parse_services.js', dataType: 'script', cache: true})
-).done(function(res) {
-    services(res[0]).drawLine($('#service-ul'));
-    $('p#service-loading').remove();
-    if (res[0].length > 0) 
-	$('#local_services').removeClass('hidden');
-});
-
-</script>
-
-</body>
+      <div class="ui segment">
+        <div class="ui stackable grid">
+          <div class="three column row">
+            <div class="column">
+              <h2 class="ui dividing magenta header">Lokales Netzwerk</h2>
+              <p>Im Freifunknetz kann jeder Dienste anbieten: alle teilnehmenden Computer können direkt miteinander kommunizieren.</p>
+            </div>
+            <div class="column">
+              <h2 class="ui dividing magenta header">Mitmachen</h2>
+              <p>Wenn Du unsere Idee gut findest und das Netz regelmässig benutzt, dann bitten wir Dich um Unterstützung:</p>
+              <ul>
+                <li><a href="http://www.freifunk-jena.de/mitmachen/">Werde selbst Freifunker</a>. Dazu muss man nur einen handelsüblichen WLAN-Router ins Fensterbrett stellen.</li>
+                <li><a href="http://www.freifunk-jena.de/spenden/">Spende</a> ein paar Euro, damit wir unser Netz weiter betreiben und ausbauen können.</li>
+                <li>Wenn Du selbst privat genutzte WLAN-Geräte betreibst nutze dafür bitte andere Kanäle als wir.</li>
+              </ul>
+            </div>
+            <div class="column" id="online">
+              <h2 class="ui dividing magenta header">Internet</h2>
+              <p>Ein Zugang ins Internet ist möglich, da einige Freifunker ihre privaten Internetzugänge zur Verfügung stellen. Diese Zugänge müssen sich hier alle teilen. Bitte sei Dir dessen bewusst und verhalte Dich dementsprechend:</p>
+              <ul>
+                <li>keine Filesharing-Programme</li>
+                <li>keine unnötigen Downloads oder Streams</li>
+                <li>keine illegalen Aktivitäten</li>
+              </ul>
+              <p>Mit einem Klick auf Akzeptieren kannst du für 1 Stunde unser Netz verwenden. Dann wirst du erneut aufgefordet, diese Bedingungen zu akzeptieren.</p>
+              <div class="ui grid">
+                <div class="eight wide column">
+                  <form method="POST" action="/cgi-bin/splash_click.html">
+	            <input type="text" style="display:none" value="Freifunk" name="username">
+	            <input type="password" style="display:none" value="Hotspot" name="password">
+	            <input type="hidden" value="targeturl" name="target_url">
+	            <input type="submit" value="Akzeptieren" class="ui magenta fluid button">
+                  </form>
+                </div>
+                <div class="eight wide column">
+	          <a href="/services.html" class="ui magenta fluid button">Ablehnen</a>
+                </div>
+              </div>
+            </div>
+            <div class="column" id="offline">
+              <h2 class="ui dividing magenta header">Internet</h2>
+              <div class="ui error message">Das Internet ist in dieser Wolke vorr&uuml;bergehend nicht verf&uuml;gbar.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./js/ffj.js"></script>
+  </body>
 </html>
