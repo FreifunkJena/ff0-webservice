@@ -17,11 +17,12 @@
     "tests"
   ],
   "dependencies": {
-      "semantic": "semantic-ui#~2.1.8",
-      "angular": "~1.4.8",
-      "zlib.js": "~0.2.0",
-      "angular-chart.js": "~0.8.8",
-      "angular-leaflet-directive": "~0.10.0",
-      "angular-moment": "~0.10.3"
+    "semantic": "semantic-ui#~2.1.8",
+    "angular": "~1.4.8",
+    "zlib.js": "~0.2.0",
+    "angular-chart.js": "~0.8.8",
+    "angular-leaflet-directive": "~0.10.0",
+    "angular-moment": "~0.10.3",
+    "ng-password-strength": "subarroca/ng-password-strength#e0229d2d5e9bb99a4d9d2322b92d6a6ad2a429fe"
   }
 }

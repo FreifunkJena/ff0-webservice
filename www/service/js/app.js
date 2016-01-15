@@ -6,8 +6,18 @@ function GeneralSettingsController($scope,$http) {
     };
 }
 
-function SecuritySettingsController($scope,$http) {
-    $scope.password = '';
+function SecuritySettingsController($scope,$http,PasswordStrengthFormulaService) {
+    $scope.ssh_password_strength = 0;
+    $scope.ssh_password = '';
+    $scope.$watch('ssh_password',function(){
+        $scope.ssh_password_strength = PasswordStrengthFormulaService.getStrength($scope.ssh_password);
+        $('.ui.progress').progress({
+            percent: $scope.ssh_password_strength
+        });
+    });
+    $('.ui.progress').progress({
+        showActivity: false
+    });
 }
 
 function MapSettingsController($scope,$http,leafletData) {
@@ -126,9 +136,9 @@ function MapSettingsController($scope,$http,leafletData) {
 
 (function (angular) {
     'use strict';
-    angular.module('SettingsApp',['leaflet-directive'])
+    angular.module('SettingsApp',['leaflet-directive','ngPasswordStrength'])
         .controller('GeneralSettingsController',['$scope','$http',GeneralSettingsController])
-        .controller('SecuritySettingsController',['$scope','$http',SecuritySettingsController])
+        .controller('SecuritySettingsController',['$scope','$http','PasswordStrengthFormulaService',SecuritySettingsController])
         .controller('MapSettingsController',['$scope','$http','leafletData',MapSettingsController]);
 })(window.angular);
 

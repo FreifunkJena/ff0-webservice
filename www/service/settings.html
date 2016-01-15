@@ -23,6 +23,13 @@
         <div class="eight wide column">
           <div class="ui segment" ng-controller="GeneralSettingsController">
             <h2 class="ui magenta dividing header">Allgemein</h2>
+            <p>
+              Gebe deinem Router einen Namen. Erlaubt sind im groben
+              nur Buchstaben und Zahlen. Wenn du es genauer wissen
+              willst, was du hier eingeben kannst, ist die Lektüre
+              der <a href="https://tools.ietf.org/html/rfc1123">RFC
+              1123</a> empfehlenswert.
+            </p>
             <form name="generalSettingsForm" class="ui form" ng-submit="submitForm(generalSettingsForm.$valid)" novalidate>
               <div class="field">
                 <label>Hostname</label>
@@ -55,28 +62,35 @@
 
           <div class="ui segment" ng-controller="SecuritySettingsController">
             <h2 class="ui magenta dividing header">Sicherheit</h2>
+            <p>
+              Das <a href="https://de.wikipedia.org/wiki/Secure_Shell">SSH</a>-Passwort
+              wird zur Administration des Routers benutzt. Damit sich
+              nicht jeder auf deinem Router einloggen kann, empfehlen
+              wir dir sehr stark das Passwort zu ändern.
+            </p>
+            <p>
+              Bitte gebe verwende hier kein Passwort, das du auch für
+              dein E-Mail-Konto, Facebook oder ähnliches benutzt, da
+              dieses Passwort
+              ohne <a href="https://de.wikipedia.org/wiki/Hypertext_Transfer_Protocol_Secure">HTTPS</a>
+              (Kein Schloss in der Adresszeile!) übertragen wird. Auch
+              wenn das Passwort unsicher übertragen wird, solltest du
+              ein gutes Passwort dir ausdenken. Der Fortschrittsbalken
+              hilft dir dabei ein gutes Passwort zu erstellen. Je
+              höher die Prozentzahl dest so besser.
+            </p>
             <form class="ui form">
               <div class="field">
                 <label>SSH-Passwort</label>
                 <input
                    placeholder="Passwort"
                    type="password"
-                   ng-model="password">
-                <div class="">
-                  <p>
-                    Dieses Passwort muss geändert werden, da der Zugang
-                    zum Router sonst mit den standard Logindaten möglich
-                    ist!
-                  </p>
-                  <p>
-                    <strong>Kein wichtiges Passwort verwenden!</strong>
-                    Das hier angegebene Passwort wird unsicher über das
-                    Netzwerk übertragen.
-                  </p>
-                  <p>
-                    Das Passwort sollte am besten nach dem Login über SSH
-                    geändert werden.
-                  </p>
+                   ng-model="ssh_password"
+                   >
+              </div>
+              <div class="ui indicating progress">
+                <div class="bar">
+                  <div class="progress">{{ ssh_password_strength }}%</div>
                 </div>
               </div>
               <button class="ui magenta button" type="submit">Speichern</button>
@@ -89,8 +103,7 @@
         <h2 class="ui magenta dividing header">Karteneinstellungen</h2>
         <h3 class="ui magenta dividing header">Haupteinstellungen</h3>
         <p>
-          Damit die Map-Updates funktionieren muss mindestens der
-          Hostname sowie der Breiten- und Längengrad angeben werden.
+          Hier kannst du Einstellen ob dein Router auf <a href="https://freifunk-jena.de/karte/">der Karte</a> von <a href="http://www.freifunk-jena.de/">Freifunk Jena</a> erscheinen soll. 
         </p>
         <form class="ui form">
           <div class="grouped fields">
@@ -104,7 +117,7 @@
                    id="manual_map_updates"
                    ng-model="map_updates">
                 <label for="manual_map_updates">
-                  Map Updates aktivieren (Manuelle Positionseingabe)
+                  Kartenaktualisierung aktivieren
                 </label>
               </div>
             </div>
@@ -117,7 +130,7 @@
                    id="no_map_updates"
                    ng-model="map_updates">
                 <label for="no_map_updates">
-                  Map Updates deaktivieren (Löscht alle Einstellungen)
+                  Kartenaktualisierung deaktivieren
                 </label>
               </div>
             </div>
@@ -194,6 +207,15 @@
                    ng-model="markers.routerloc.lng"
                    >
               </div>
+              <p>
+                Wenn du deine Koordinaten nicht kennst, kannst du die
+                folgende Funktionen benutzen. Es wir dabei eine
+                Internetverbindung zu
+                dem <a href="http://www.openstreetmap.org/">OpenStreetMap</a>-Projekt
+                aufgebaut. Wenn du die Koordinaten aus deiner Adresse
+                ermitteln lässt, ist es empfehlenswert den Standort
+                nochmals über die Karte zu kontrolieren.
+              </p>
               <a
                  class="ui magenta button"
                  ng-click="GeoFromAddress();"
@@ -226,9 +248,11 @@
             <div class="eight wide column">
               <h3 class="ui magenta dividing header">Netzwerk-Informationen</h3>
               <p>
-                Über die Map können zusätzlich Netzwerk-Informationen
-                wie die momentane IP-Adresse abgerufen werden wenn
-                diese Option aktiviert ist.  Die zu übertragenen
+                Über die Karte können zusätzlich Netzwerkinformationen
+                wie die momentane IP-Adresse im Freifunk Netz (Nicht
+                deine öffentliche IP-Adresse deines
+                Internet-Anschlusses) abgerufen werden wenn diese
+                Option aktiviert ist.  Die zu übertragenen
                 Netzwerkschnittstellen können in dem Feld darunter
                 angegeben werden (Getrennt per Leerzeichen).
               </p>

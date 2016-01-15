@@ -14,7 +14,10 @@ var js_files = [
     "./bower_components/leaflet/dist/leaflet.js",
     "./bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js",
     "./bower_components/moment/moment.js",
-    "./bower_components/angular-moment/angular-moment.js"
+    "./bower_components/angular-moment/angular-moment.js",
+    "./bower_components/lodash/lodash.js",
+    "./bower_components/ng-password-strength/app/src/_module.js",
+    "./bower_components/ng-password-strength/app/src/services/password-strength-formula.factory.js"
 ];
 
 js_files.push("./js/app.js");
@@ -35,6 +38,7 @@ var css_files = [
     "./bower_components/semantic/dist/components/grid.css",
     "./bower_components/semantic/dist/components/form.css",
     "./bower_components/semantic/dist/components/modal.css",
+    "./bower_components/semantic/dist/components/progress.css",
     "./bower_components/angular-chart.js/dist/angular-chart.css",
     "./bower_components/leaflet/dist/leaflet.css",
     "./css/ffj.css",
