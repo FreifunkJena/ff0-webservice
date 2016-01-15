@@ -19,48 +19,55 @@
         <h1 class="ui header">Routereintsellungen für „{{ hostname }}“</h1>
       </div>
 
-      <div class="ui segment" ng-controller="GeneralSettingsController">
-        <h2 class="ui magenta dividing header">Allgemein</h2>
-        <form class="ui form">
-          <div class="field">
-            <label>Hostname</label>
-            <input
-               placeholder="Hostname"
-               type="text"
-               ng-model="hostname">
+      <div class="ui stackable grid">
+        <div class="eight wide column">
+          <div class="ui segment" ng-controller="GeneralSettingsController">
+            <h2 class="ui magenta dividing header">Allgemein</h2>
+            <form class="ui form">
+              <div class="field">
+                <label>Hostname</label>
+                <input
+                   placeholder="Hostname"
+                   type="text"
+                   ng-model="hostname">
+              </div>
+              <button class="ui magenta button" type="submit">Speichern</button>
+            </form>
           </div>
-          <button class="ui magenta button" type="submit">Speichern</button>
-        </form>
-      </div>
 
-      <div class="ui segment" ng-controller="SecuritySettingsController">
-        <h2 class="ui magenta dividing header">Sicherheit</h2>
-        <form class="ui form">
-          <div class="field">
-            <label>SSH-Passwort</label>
-            <input
-               placeholder="Passwort"
-               type="password"
-               ng-model="password">
-            <div class="">
-              <p>
-                Dieses Passwort muss geändert werden, da der Zugang
-                zum Router sonst mit den standard Logindaten möglich
-                ist!
-              </p>
-              <p>
-                <strong>Kein wichtiges Passwort verwenden!</strong>
-                Das hier angegebene Passwort wird unsicher über das
-                Netzwerk übertragen.
-              </p>
-              <p>
-                Das Passwort sollte am besten nach dem Login über SSH
-                geändert werden.
-              </p>
-            </div>
+        </div>
+        <div class="eight wide column">
+
+          <div class="ui segment" ng-controller="SecuritySettingsController">
+            <h2 class="ui magenta dividing header">Sicherheit</h2>
+            <form class="ui form">
+              <div class="field">
+                <label>SSH-Passwort</label>
+                <input
+                   placeholder="Passwort"
+                   type="password"
+                   ng-model="password">
+                <div class="">
+                  <p>
+                    Dieses Passwort muss geändert werden, da der Zugang
+                    zum Router sonst mit den standard Logindaten möglich
+                    ist!
+                  </p>
+                  <p>
+                    <strong>Kein wichtiges Passwort verwenden!</strong>
+                    Das hier angegebene Passwort wird unsicher über das
+                    Netzwerk übertragen.
+                  </p>
+                  <p>
+                    Das Passwort sollte am besten nach dem Login über SSH
+                    geändert werden.
+                  </p>
+                </div>
+              </div>
+              <button class="ui magenta button" type="submit">Speichern</button>
+            </form>
           </div>
-          <button class="ui magenta button" type="submit">Speichern</button>
-        </form>
+        </div>
       </div>
 
       <div class="ui segment" ng-controller="MapSettingsController">
