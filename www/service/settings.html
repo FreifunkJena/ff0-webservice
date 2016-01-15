@@ -197,6 +197,15 @@
                 <div class="content">
                   <leaflet center="location" markers="markers" width="100%" height="480px"></leaflet>
                 </div>
+                  <div class="actions">
+                    <div
+                       ng-click="GeoFromBrowser();"
+                       ng-visible="'geolocation' in navigator"
+                       class="ui button">
+                      Position vom Browser bestimmen lassen
+                    </div>
+                    <div class="ui approve button">Fenster schließen</div>
+                  </div>
               </div>
             </div>
             <div class="eight wide column">

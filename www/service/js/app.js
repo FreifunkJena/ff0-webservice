@@ -76,6 +76,26 @@ function MapSettingsController($scope,$http,leafletData) {
         });
     });
 
+    $scope.GeoFromBrowser = function() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            angular.extend($scope, {
+                location: {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                    zoom: 18
+                },
+                markers: {
+                    routerloc: {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                        focus: true,
+                        draggable: true
+                    }
+                }
+            });
+        });
+    };
+
     $scope.GeoFromAddress = function() {
         var query = $scope.street + ", " + $scope.zipcode + " " + $scope.city + ", " + $scope.country;
         var query_url = "https://nominatim.openstreetmap.org/search.php?format=json&q=" + query
