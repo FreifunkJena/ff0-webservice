@@ -4,23 +4,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freifunk Jena</title>
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/reset.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/site.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/container.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/header.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/divider.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/icon.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/list.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/segment.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/menu.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/button.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/image.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/message.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/grid.css">
-    <link rel="stylesheet" href="./bower_components/semantic/dist/components/form.css">
-    <link rel="stylesheet" href="./css/ffj.css">
+    <link rel="stylesheet" href="./dist/all.css">
   </head>
-  <body>
+  <body ng-app="SettingsApp">
 
     <header class="ui main container">
       <div class="ui magenta menu">
@@ -29,27 +15,33 @@
     </header>
 
     <main class="ui main container">
-      <div class="ui inverted magenta segment">
+      <div class="ui inverted magenta segment" ng-controller="GeneralSettingsController">
         <h1 class="ui header">Routereintsellungen für „{{ hostname }}“</h1>
       </div>
 
-      <div class="ui segment">
+      <div class="ui segment" ng-controller="GeneralSettingsController">
         <h2 class="ui magenta dividing header">Allgemein</h2>
         <form class="ui form">
           <div class="field">
             <label>Hostname</label>
-            <input name="hostname" placeholder="Hostname" type="text">
+            <input
+               placeholder="Hostname"
+               type="text"
+               ng-model="hostname">
           </div>
           <button class="ui magenta button" type="submit">Speichern</button>
         </form>
       </div>
 
-      <div class="ui segment">
+      <div class="ui segment" ng-controller="SecuritySettingsController">
         <h2 class="ui magenta dividing header">Sicherheit</h2>
         <form class="ui form">
           <div class="field">
             <label>SSH-Passwort</label>
-            <input name="hostname" placeholder="Hostname" type="text">
+            <input
+               placeholder="Passwort"
+               type="password"
+               ng-model="password">
             <div class="">
               <p>
                 Dieses Passwort muss geändert werden, da der Zugang
@@ -71,7 +63,7 @@
         </form>
       </div>
 
-      <div class="ui segment">
+      <div class="ui segment" ng-controller="MapSettingsController">
         <h2 class="ui magenta dividing header">Karteneinstellungen</h2>
         <h3 class="ui magenta dividing header">Haupteinstellungen</h3>
         <p>
@@ -82,50 +74,122 @@
           <div class="grouped fields">
             <div class="field">
               <div class="ui radio checkbox">
-                <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
-                <label>Map Updates aktivieren (Manuelle Positionseingabe)</label>
+                <input
+                   class="hidden"
+                   name="router_geo"
+                   value="manual"
+                   type="radio"
+                   id="manual_map_updates"
+                   ng-model="map_updates">
+                <label for="manual_map_updates">
+                  Map Updates aktivieren (Manuelle Positionseingabe)
+                </label>
               </div>
             </div>
             <div class="field">
               <div class="ui radio checkbox">
-                <input class="hidden" tabindex="0" name="router_geo" value="private" checked="" type="radio">
-                <label>Map Updates deaktivieren (Löscht alle Einstellungen)</label>
+                <input
+                   class="hidden"
+                   value="private"
+                   type="radio"
+                   id="no_map_updates"
+                   ng-model="map_updates">
+                <label for="no_map_updates">
+                  Map Updates deaktivieren (Löscht alle Einstellungen)
+                </label>
               </div>
             </div>
           </div>
-          <div class="ui stackable grid">
+          <div
+             class="ui stackable grid"
+             id="information"
+             ng-hide="map_updates == 'private'">
             <div class="eight wide column">
               <h3 class="ui magenta dividing header">Adress-Informationen</h3>
               <div class="field">
                 <label>Name</label>
-                <input name="name" placeholder="Name" type="text">
+                <input
+                   name="name"
+                   placeholder="Name"
+                   type="text"
+                   ng-model="name"
+                   >
               </div>
               <div class="field">
                 <label>Straße</label>
-                <input name="name" placeholder="Straße" type="text">
+                <input
+                   name="name"
+                   placeholder="Straße"
+                   type="text"
+                   ng-model="street"
+                   >
               </div>
               <div class="field">
                 <label>Postleitzahl</label>
-                <input name="name" placeholder="Postleitzahl" type="text">
+                <input
+                   name="name"
+                   placeholder="Postleitzahl"
+                   type="text"
+                   ng-model="zipcode"
+                   >
               </div>
               <div class="field">
                 <label>Ort</label>
-                <input name="name" placeholder="Ort" type="text">
+                <input
+                   name="name"
+                   placeholder="Ort"
+                   type="text"
+                   ng-model="city"
+                   >
               </div>
               <div class="field">
                 <label>Land</label>
-                <input name="name" placeholder="Land" type="text">
+                <input
+                   name="name"
+                   placeholder="Land"
+                   type="text"
+                   ng-model="country"
+                   >
               </div>
             </div>
             <div class="eight wide column">
               <h3 class="ui magenta dividing header">Router-Position</h3>
               <div class="field">
                 <label>Breitengrad (Latitude)</label>
-                <input name="latitude" placeholder="Breitengrad" type="text">
+                <input
+                   name="latitude"
+                   placeholder="Breitengrad"
+                   type="text"
+                   ng-model="markers.routerloc.lat"
+                   >
               </div>
               <div class="field">
                 <label>Längengrad (Longitude)</label>
-                <input name="longitude" placeholder="Längengrad" type="text">
+                <input
+                   name="longitude"
+                   placeholder="Längengrad"
+                   type="text"
+                   ng-model="markers.routerloc.lng"
+                   >
+              </div>
+              <a
+                 class="ui magenta button"
+                 ng-click="GeoFromAddress();"
+                 >
+                Geo Koordinaten aus der Adresse ermitteln
+              </a>
+              <div class="ui hidden divider"></div>
+              <a
+                 class="ui magenta button"
+                 id="geofrommap"
+                 >
+                Geo Koordinaten auf einer Karte auswählen
+              </a>
+              <div class="ui modal" id="mapselector">
+                <div class="header">Setze den Pfeil dort hin wo dein Router steht</div>
+                <div class="content">
+                  <leaflet center="location" markers="markers" width="100%" height="480px"></leaflet>
+                </div>
               </div>
             </div>
             <div class="eight wide column">
@@ -140,14 +204,26 @@
               <div class="grouped fields">
                 <div class="field">
                   <div class="ui radio checkbox">
-                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
-                    <label>Netzwerk-Informationen übertragen.</label>
+                    <input
+                       class="hidden"
+                       value="true"
+                       type="radio"
+                       id="router_pos_gen_interfaces"
+                       ng-model="router_pos_gen_interfaces"
+                       >
+                    <label for="router_pos_gen_interfaces">Netzwerk-Informationen übertragen.</label>
                   </div>
                 </div>
                 <div class="field">
                   <div class="ui radio checkbox">
-                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
-                    <label>Netzwerk-Informationen nicht übertragen.</label>
+                    <input
+                       class="hidden"
+                       value="false"
+                       type="radio"
+                       id="no_router_pos_gen_interfaces"
+                       ng-model="router_pos_gen_interfaces"
+                       >
+                    <label for="no_router_pos_gen_interfaces">Netzwerk-Informationen nicht übertragen.</label>
                   </div>
                 </div>
               </div>
@@ -155,41 +231,37 @@
                 <label for="fruit">Standard-Routen</label>
                 <div class="field">
                   <div class="ui radio checkbox">
-                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
-                    <label>Standard-Routen übertragen.</label>
+                    <input
+                       class="hidden"
+                       value="true"
+                       type="radio"
+                       id="router_pos_gen_routes"
+                       ng-model="router_pos_gen_routes"
+                       >
+                    <label for="router_pos_gen_routes">Standard-Routen übertragen.</label>
                   </div>
                 </div>
                 <div class="field">
                   <div class="ui radio checkbox">
-                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
-                    <label>Standard-Routen nicht übertragen.</label>
+                    <input
+                       class="hidden"
+                       value="false"
+                       type="radio"
+                       id="no_router_pos_gen_routes"
+                       ng-model="router_pos_gen_routes"
+                       >
+                    <label for="no_router_pos_gen_routes">Standard-Routen nicht übertragen.</label>
                   </div>
                 </div>
               </div>
               <div class="field">
                 <label>Netzwerkschnittstellen</label>
-                <input name="router_pos_interfaces" placeholder="Netzwerkschnittstellen" type="text">
-              </div>
-            </div>
-            <div class="eight wide column">
-              <h3 class="ui magenta dividing header">Firmware-Informationen</h3>
-              <p>
-                Die Firmware-Informationen beininhalten den
-                Firmwarenamen sowie die Firmwareversion
-              </p>
-              <div class="grouped fields">
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
-                    <label>Firmware-Informationen übertragen.</label>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input class="hidden" tabindex="0" name="router_geo" value="manual" checked="" type="radio">
-                    <label>Firmware-Informationen nicht übertragen.</label>
-                  </div>
-                </div>
+                <input
+                   name="router_pos_interfaces"
+                   placeholder="Netzwerkschnittstellen"
+                   type="text"
+                   ng-model="router_pos_interfaces"
+                   >
               </div>
             </div>
           </div>
@@ -198,5 +270,6 @@
         </form>
       </div>
     </main>
+    <script src="./dist/all.js"></script>
   </body>
 </html>
