@@ -23,15 +23,30 @@
         <div class="eight wide column">
           <div class="ui segment" ng-controller="GeneralSettingsController">
             <h2 class="ui magenta dividing header">Allgemein</h2>
-            <form class="ui form">
+            <form name="generalSettingsForm" class="ui form" ng-submit="submitForm(generalSettingsForm.$valid)" novalidate>
               <div class="field">
                 <label>Hostname</label>
                 <input
                    placeholder="Hostname"
                    type="text"
+                   name="hostname"
+                   pattern="(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])"
+                   ng-required="true"
                    ng-model="hostname">
+                <div
+                   ng-show="generalSettingsForm.hostname.$dirty && (generalSettingsForm.hostname.$error.required || generalSettingsForm.hostname.$error.pattern)"
+                   class="ui pointing red basic label">
+                  <div
+                     ng-show="generalSettingsForm.hostname.$error.required">
+                    Bitte gebe einen Hostnamen an.
+                  </div>
+                  <div
+                     ng-show="generalSettingsForm.hostname.$error.pattern">
+                    Bitte gebe einen gültigen Hostnamen nach RFC 1123 an.
+                  </div>
+                </div>
               </div>
-              <button class="ui magenta button" type="submit">Speichern</button>
+              <button class="ui magenta button" ng-disabled="generalSettingsForm.$invalid" type="submit">Speichern</button>
             </form>
           </div>
 

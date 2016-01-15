@@ -1,13 +1,9 @@
 function GeneralSettingsController($scope,$http) {
     $scope.hostname = '';
-    // $http({
-    //     method: 'GET',
-    //     url: './cgi-bin/client_net.json',
-    // }).then(function successCallback(response) {
-    //     $scope.hostname = response.router_name;
-    // }, function errorCallback(response) {
 
-    // });
+    $scope.submitForm = function(isValid) {
+        console.log(isValid);
+    };
 }
 
 function SecuritySettingsController($scope,$http) {
