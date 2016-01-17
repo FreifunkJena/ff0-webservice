@@ -55,7 +55,14 @@ function MapSettingsController($scope,$http,leafletData) {
             markers: {
                 enable: ['dragend'],
                 logic: 'emit'
+            },
+            map: {
+                enable: ['click'],
+                logic: 'emit'
             }
+        },
+        defaults: {
+            scrollWheelZoom: false
         },
         markers: {
             routerloc: {
@@ -65,6 +72,24 @@ function MapSettingsController($scope,$http,leafletData) {
                 draggable: true
             }
         }
+    });
+
+    $scope.$on('leafletDirectiveMap.click', function(event,args){
+        angular.extend($scope, {
+            location: {
+                lat: args.leafletEvent.latlng.lat,
+                lng: args.leafletEvent.latlng.lng,
+                zoom: args.leafletEvent.target._zoom
+            },
+            markers: {
+                routerloc: {
+                    lat: args.leafletEvent.latlng.lat,
+                    lng: args.leafletEvent.latlng.lng,
+                    focus: true,
+                    draggable: true
+                }
+            }
+        });
     });
 
     $scope.$on('leafletDirectiveMarker.dragend', function(event,args){
