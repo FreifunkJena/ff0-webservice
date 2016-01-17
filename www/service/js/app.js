@@ -39,6 +39,9 @@ function MapSettingsController($scope,$http,leafletData) {
                 });
             }
         });
+        $('#mapselector')
+            .modal('attach events', '#geofrommap')
+        ;
     });
 
 
@@ -141,9 +144,3 @@ function MapSettingsController($scope,$http,leafletData) {
         .controller('SecuritySettingsController',['$scope','$http','PasswordStrengthFormulaService',SecuritySettingsController])
         .controller('MapSettingsController',['$scope','$http','leafletData',MapSettingsController]);
 })(window.angular);
-
-$(document).ready(function(){
-    $('#mapselector')
-        .modal('attach events', '#geofrommap')
-    ;
-});

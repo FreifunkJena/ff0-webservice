@@ -38,10 +38,12 @@ var css_files = [
     "./bower_components/semantic/dist/components/grid.css",
     "./bower_components/semantic/dist/components/form.css",
     "./bower_components/semantic/dist/components/modal.css",
+    "./bower_components/semantic/dist/components/dimmer.css",
     "./bower_components/semantic/dist/components/progress.css",
+    "./bower_components/semantic/dist/components/transition.css",
     "./bower_components/angular-chart.js/dist/angular-chart.css",
     "./bower_components/leaflet/dist/leaflet.css",
-    "./css/ffj.css",
+    "./css/ffj.css"
 ];
 
 gulp.task('scripts', function() {
