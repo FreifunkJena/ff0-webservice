@@ -1,5 +1,5 @@
 #!/bin/sh -e
-. $IPKG_INSTROOT/etc/functions.sh
+. $IPKG_INSTROOT/lib/functions.sh
 . /etc/splash.sh
 
 x=0
